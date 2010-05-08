@@ -2,9 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.beta3'
 gem 'mongo_mapper'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'mongo_ext'
+gem 'haml'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -20,6 +19,8 @@ gem 'mongo_mapper'
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
-# group :test do
-#   gem 'webrat'
-# end
+group :test do
+  gem 'rspec', '1.3.0'
+  gem "rspec-rails"
+  gem "factory_girl"
+end
