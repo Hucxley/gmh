@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.beta3'
-gem 'mongo_mapper'
+gem "mongoid", "2.0.0.beta4"
+gem "bson_ext", "0.20.1"
 gem 'mongo_ext'
 gem 'haml'
 
@@ -20,7 +21,8 @@ gem 'haml'
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
 group :test do
-  gem 'rspec', '1.3.0'
+  gem 'rspec'
   gem "rspec-rails"
+  gem "mongoid-rspec"
   gem "factory_girl"
 end

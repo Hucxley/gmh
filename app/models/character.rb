@@ -1,6 +1,6 @@
 class Character
-  include MongoMapper::Document
+  include Mongoid::Document
 
-  key :name, String
-  key :initiative, Integer
+  field :name, :type => String
+  field :initiative, :type => Integer
 end

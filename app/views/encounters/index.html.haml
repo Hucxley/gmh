@@ -1,0 +1,16 @@
+%h1 Listing encounters
+
+%table
+  %thead
+    %tr
+      %th{ :colspan => 3 }
+  
+  %tbody
+    - for encounter in @encounters
+      %tr{ :class => cycle(:odd, :even) }
+        %td= link_to 'Show', encounter
+        %td= link_to 'Edit', edit_encounter_path(encounter)
+        %td= link_to 'Destroy', encounter, :confirm => 'Are you sure?', :method => :delete
+
+%br
+= link_to 'New encounter', new_encounter_path
