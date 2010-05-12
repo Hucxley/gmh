@@ -24,5 +24,6 @@ group :test do
   gem 'rspec'
   gem "rspec-rails"
   gem "mongoid-rspec"
-  gem "factory_girl"
+  git "git://github.com/thoughtbot/factory_girl.git",
+    :branch => "rails3"
 end
