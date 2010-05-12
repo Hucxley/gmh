@@ -1,0 +1,10 @@
+%p
+  %b Name:
+  = @character.name
+%p
+  %b Initiative:
+  = @character.initiative
+
+= link_to 'Edit', edit_character_path(@character)
+\|
+= link_to 'Back', characters_path

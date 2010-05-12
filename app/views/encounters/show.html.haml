@@ -1,4 +1,13 @@
+%p
+  %b Name:
+  = @encounter.name
+
+  %table
+    - @characters.each do |character|
+      %tr.character
+        %td.initiative= character.initiative
+        %td.name= character.name
 
 = link_to 'Edit', edit_encounter_path(@encounter)
-|
+\|
 = link_to 'Back', encounters_path

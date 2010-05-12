@@ -14,6 +14,7 @@ class EncountersController < ApplicationController
   # GET /encounters/1.xml
   def show
     @encounter = Encounter.find(params[:id])
+    @characters = Character.all
 
     respond_to do |format|
       format.html # show.html.erb
