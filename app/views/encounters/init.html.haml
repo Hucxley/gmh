@@ -1,0 +1,13 @@
+%p
+  %b Name:
+  = @encounter.name
+
+  %form{:action => run_encounter_path, :method => "POST"}
+    %table
+      - @characters.each do |character|
+        %tr.character
+          %td.name= character.name
+          %td
+            %input{:id => "characters_#{character.id}_roll", :name => "characters[#{character.id}][roll]"}
+
+    %input{:type => "submit"}

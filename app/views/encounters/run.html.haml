@@ -1,0 +1,9 @@
+%p
+  %b Name:
+  = @encounter.name
+
+  %table
+    - @characters.each do |name, init|
+      %tr.character
+        %td.name= name
+        %td.init= init
