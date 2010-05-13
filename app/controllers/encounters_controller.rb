@@ -10,6 +10,23 @@ class EncountersController < ApplicationController
     end
   end
 
+  def init
+    @encounter = Encounter.find(params[:id])
+    @characters = Character.all
+  end
+
+  def run
+    @encounter = Encounter.find(params[:id])
+
+    @characters = []
+    params["characters"].each do |char, roll|
+      char = Character.find(char)
+      init = roll[:roll].to_i + char.initiative
+      @characters << [char.name, init]
+    end
+    @characters = @characters.sort_by { |c, i| -i}
+  end
+
   # GET /encounters/1
   # GET /encounters/1.xml
   def show

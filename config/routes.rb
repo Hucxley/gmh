@@ -1,7 +1,12 @@
 Gmh::Application.routes.draw do |map|
   resources :characters
 
-  resources :encounters
+  resources :encounters do
+    member do
+      get :init
+      post :run
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
