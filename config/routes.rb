@@ -1,4 +1,6 @@
 Gmh::Application.routes.draw do |map|
+  resources :campaigns
+
   resources :characters
 
   resources :encounters do
@@ -57,7 +59,7 @@ Gmh::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "encounters#index"
+  root :to => "campaigns#index"
 
   # See how all your routes lay out with "rake routes"
 

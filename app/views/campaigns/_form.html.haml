@@ -1,0 +1,10 @@
+- form_for(@campaign) do |f|
+  = f.error_messages
+  
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+
+  .actions
+    = f.submit
