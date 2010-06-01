@@ -3,5 +3,5 @@ class Character
 
   field :name, :type => String
   field :initiative, :type => Integer
-  field :encounter, :type => BSON::ObjectId
+  field :encounter, :type => BSON::ObjectID
 end

@@ -21,8 +21,8 @@ gem 'haml'
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
 group :test do
-  gem 'rspec'
-  gem "rspec-rails"
+  gem 'rspec', "2.0.0.beta.7"
+  gem "rspec-rails", "2.0.0.beta.7"
   gem "mongoid-rspec"
   git "git://github.com/thoughtbot/factory_girl.git",
     :branch => "rails3"
