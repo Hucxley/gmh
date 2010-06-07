@@ -2,8 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.beta3'
 gem "mongoid", "2.0.0.beta6"
-gem "mongo", "1.0.1"
-gem "bson_ext", "1.0.1"
+gem "mongo", "1.0.2"
+gem "bson", "1.0.2"
+gem "bson_ext"
 gem 'haml'
 
 # Use unicorn as the web server
@@ -26,4 +27,5 @@ group :test do
   gem "mongoid-rspec"
   git "git://github.com/thoughtbot/factory_girl.git",
     :branch => "rails3"
+  gem 'jasmine-ruby'
 end
