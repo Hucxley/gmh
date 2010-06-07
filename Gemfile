@@ -27,5 +27,4 @@ group :test do
   gem "mongoid-rspec"
   git "git://github.com/thoughtbot/factory_girl.git",
     :branch => "rails3"
-  gem 'jasmine-ruby'
 end
