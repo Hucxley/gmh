@@ -1,6 +1,18 @@
 class EncountersController < ApplicationController
+
+  before_filter :find_campaign
+  before_filter :find_encounter, :only => [:init, :run, :show, :edit, :update, :destroy]
+
+  def find_campaign
+    @campaign = Campaign.find(params[:campaign_id])
+  end
+
+  def find_encounter
+    @encounter = @campaign.encounters.find(params[:id])
+  end
+
   def index
-    @encounters = Encounter.all
+    @encounters = @campaign.encounters.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -8,25 +20,24 @@ class EncountersController < ApplicationController
   end
 
   def init
-    @encounter = Encounter.find(params[:id])
-    @characters = Character.all
+    @characters = @encounter.characters.all
   end
 
   def run
-    @encounter = Encounter.find(params[:id])
-
     @characters = []
+
     params["characters"].each do |char, roll|
       char = Character.find(char)
       init = roll[:roll].to_i + char.initiative
       @characters << [char.name, init]
     end
+
     @characters = @characters.sort_by { |c, i| -i}
   end
 
   def show
-    @encounter = Encounter.find(params[:id])
-    @characters = Character.all
+    @characters = []
+    # @characters = @encounter.characters.all
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +45,7 @@ class EncountersController < ApplicationController
   end
 
   def new
-    @encounter = Encounter.new
+    @encounter = @campaign.encounters.new(params[:encounter])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,7 +53,8 @@ class EncountersController < ApplicationController
   end
 
   def edit
-    @encounter = Encounter.find(params[:id])
+    @characters = []
+    # @characters = @encounter.characters.all
   end
 
   def create
@@ -58,8 +70,6 @@ class EncountersController < ApplicationController
   end
 
   def update
-    @encounter = Encounter.find(params[:id])
-
     respond_to do |format|
       if @encounter.update_attributes(params[:encounter])
         format.html { redirect_to(@encounter, :notice => 'Encounter was successfully updated.') }
@@ -70,7 +80,6 @@ class EncountersController < ApplicationController
   end
 
   def destroy
-    @encounter = Encounter.find(params[:id])
     @encounter.destroy
 
     respond_to do |format|

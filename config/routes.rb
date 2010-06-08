@@ -1,7 +1,7 @@
 Gmh::Application.routes.draw do |map|
-  resources :campaigns
-
-  resources :characters
+  resources :campaigns do
+    resources :characters, :encounters
+  end
 
   resources :encounters do
     member do

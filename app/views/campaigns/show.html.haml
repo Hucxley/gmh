@@ -2,11 +2,12 @@
   %strong Name:
   = @campaign.name
 
-  %strong Encounters:
-  = for encounter in @campaign.encounters.find(:all)
+%p
+  %strong= link_to "Encounters:", campaign_encounters_path(@campaign)
+  - for encounter in @campaign.encounters.find(:all)
     %ul
       %li
-        = encounter.name
+        = link_to encounter.name, campaign_encounter_path(@campaign, encounter)
 
 = link_to 'Edit', edit_campaign_path(@campaign)
 |
