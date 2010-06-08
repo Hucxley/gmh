@@ -6,6 +6,7 @@ gem "mongo", "1.0.2"
 gem "bson", "1.0.2"
 gem "bson_ext"
 gem 'haml'
+gem 'nokogiri', '1.4.1'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -15,7 +16,6 @@ gem 'haml'
 
 # Bundle the extra gems:
 # gem 'bj'
-# gem 'nokogiri', '1.4.1'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
