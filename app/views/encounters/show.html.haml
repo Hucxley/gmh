@@ -8,10 +8,7 @@
         %td.initiative= character.initiative
         %td.name= character.name
 
-  %button#previous previous
-  %button#next next
-
 
 = link_to 'Edit', edit_campaign_encounter_path(@campaign, @encounter)
 \|
-= link_to 'Back', encounters_path
+= link_to 'Back', campaign_encounters_path(@campaign)

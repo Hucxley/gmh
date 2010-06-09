@@ -6,14 +6,17 @@
     %th
     %th
     %th
+    %th
 
   - @encounters.each do |encounter|
     %tr
       %td= encounter.name
-      %td= link_to 'Show', encounter
-      %td= link_to 'Edit', edit_encounter_path(encounter)
-      %td= link_to 'Destroy', encounter, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Run', init_campaign_encounter_path(@campaign, encounter)
+      %td= link_to 'Show', campaign_encounter_path(@campaign, encounter)
+      %td= link_to 'Edit', edit_campaign_encounter_path(@campaign, encounter)
+      %td= link_to 'Destroy', campaign_encounter_path(@campaign, encounter), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New encounter', new_encounter_path
+= link_to 'New encounter', new_campaign_encounter_path(@campaign)
+= link_to 'Back to campaigns', campaigns_path
