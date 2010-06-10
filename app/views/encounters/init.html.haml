@@ -1,8 +1,10 @@
+%h1= "Preparing to run #{@encounter.name}"
+
 %p
   %b Name:
   = @encounter.name
 
-  %form{:action => run_encounter_path, :method => "POST"}
+  = form_for [@campaign, @encounter], :url => run_campaign_encounter_path(@campaign, @encounter), :html => {:method => 'post'} do
     %table
       - @characters.each do |character|
         %tr.character

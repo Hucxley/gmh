@@ -1,3 +1,4 @@
+%h1= "Running #{@encounter.name}"
 %p
   %b Name:
   = @encounter.name
@@ -7,3 +8,6 @@
       %tr.character
         %td.name= name
         %td.init= init
+
+  %button#previous previous round
+  %button#next next round

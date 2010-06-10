@@ -1,6 +1,18 @@
 class EncountersController < ApplicationController
+
+  before_filter :find_campaign
+  before_filter :find_encounter, :only => [:init, :run, :show, :edit, :update, :destroy]
+
+  def find_campaign
+    @campaign = Campaign.find(params[:campaign_id])
+  end
+
+  def find_encounter
+    @encounter = @campaign.encounters.find(params[:id])
+  end
+
   def index
-    @encounters = Encounter.all
+    @encounters = @campaign.encounters.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -8,25 +20,19 @@ class EncountersController < ApplicationController
   end
 
   def init
-    @encounter = Encounter.find(params[:id])
-    @characters = Character.all
+    @characters = @encounter.characters
   end
 
   def run
-    @encounter = Encounter.find(params[:id])
+    @characters = @encounter.characters
 
-    @characters = []
-    params["characters"].each do |char, roll|
-      char = Character.find(char)
-      init = roll[:roll].to_i + char.initiative
-      @characters << [char.name, init]
+    if params.has_key?(:characters)
+      @encounter.initialize_characters(params[:characters])
     end
-    @characters = @characters.sort_by { |c, i| -i}
   end
 
   def show
-    @encounter = Encounter.find(params[:id])
-    @characters = Character.all
+    @characters = @encounter.characters
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +40,8 @@ class EncountersController < ApplicationController
   end
 
   def new
-    @encounter = Encounter.new
+    encounter_attributes = params.fetch(:encounter, {})
+    @encounter = @campaign.encounters.build(encounter_attributes)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,15 +49,15 @@ class EncountersController < ApplicationController
   end
 
   def edit
-    @encounter = Encounter.find(params[:id])
+    @characters = @encounter.characters
   end
 
   def create
-    @encounter = Encounter.new(params[:encounter])
+    @encounter = @campaign.encounters.build(params[:encounter])
 
     respond_to do |format|
       if @encounter.save
-        format.html { redirect_to(@encounter, :notice => 'Encounter was successfully created.') }
+        format.html { redirect_to([@campaign, @encounter], :notice => 'Encounter was successfully created.') }
       else
         format.html { render :action => "new" }
       end
@@ -58,11 +65,9 @@ class EncountersController < ApplicationController
   end
 
   def update
-    @encounter = Encounter.find(params[:id])
-
     respond_to do |format|
       if @encounter.update_attributes(params[:encounter])
-        format.html { redirect_to(@encounter, :notice => 'Encounter was successfully updated.') }
+        format.html { redirect_to([@campaign, @encounter], :notice => 'Encounter was successfully updated.') }
       else
         format.html { render :action => "edit" }
       end
@@ -70,11 +75,10 @@ class EncountersController < ApplicationController
   end
 
   def destroy
-    @encounter = Encounter.find(params[:id])
     @encounter.destroy
 
     respond_to do |format|
-      format.html { redirect_to(encounters_url) }
+      format.html { redirect_to(campaign_encounters_path(@campaign)) }
     end
   end
 end

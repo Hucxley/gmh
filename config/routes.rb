@@ -1,7 +1,13 @@
 Gmh::Application.routes.draw do |map|
-  resources :campaigns
-
-  resources :characters
+  resources :campaigns do
+    resources :characters
+    resources :encounters do
+      member do
+        get :init, :run
+        post :run
+      end
+    end
+  end
 
   resources :encounters do
     member do
