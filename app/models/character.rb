@@ -4,4 +4,6 @@ class Character
   field :name, :type => String
   field :initiative, :type => Integer
   field :encounter, :type => BSON::ObjectID
+  
+  embedded_in :campaign, :inverse_of => :characters
 end

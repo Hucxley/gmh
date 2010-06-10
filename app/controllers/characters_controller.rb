@@ -1,6 +1,17 @@
 class CharactersController < ApplicationController
+  before_filter :find_campaign
+  before_filter :find_character, :only => [:show, :edit, :update, :destroy]
+
+  def find_campaign
+    @campaign = Campaign.find(params[:campaign_id])
+  end
+
+  def find_character
+    @character = @campaign.characters.find(params[:id])
+  end
+
   def index
-    @characters = Character.all
+    @characters = @campaign.characters.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -8,15 +19,13 @@ class CharactersController < ApplicationController
   end
 
   def show
-    @character = Character.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
     end
   end
 
   def new
-    @character = Character.new
+    @character = @campaign.characters.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -24,15 +33,14 @@ class CharactersController < ApplicationController
   end
 
   def edit
-    @character = Character.find(params[:id])
   end
 
   def create
-    @character = Character.new(params[:character])
+    @character = @campaign.characters.build(params[:character])
 
     respond_to do |format|
       if @character.save
-        format.html { redirect_to(@character, :notice => 'Character was successfully created.') }
+        format.html { redirect_to([@campaign, @character], :notice => 'Character was successfully created.') }
       else
         format.html { render :action => "new" }
       end
@@ -40,11 +48,9 @@ class CharactersController < ApplicationController
   end
 
   def update
-    @character = Character.find(params[:id])
-
     respond_to do |format|
       if @character.update_attributes(params[:character])
-        format.html { redirect_to(@character, :notice => 'Character was successfully updated.') }
+        format.html { redirect_to([@campaign, @character], :notice => 'Character was successfully updated.') }
       else
         format.html { render :action => "edit" }
       end
@@ -52,11 +58,10 @@ class CharactersController < ApplicationController
   end
 
   def destroy
-    @character = Character.find(params[:id])
     @character.destroy
 
     respond_to do |format|
-      format.html { redirect_to(characters_url) }
+      format.html { redirect_to(campaign_characters_path(@campaign)) }
     end
   end
 end
