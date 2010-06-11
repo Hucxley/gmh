@@ -19,8 +19,22 @@ var fixHelper = function(e, ui) {
 $(function() {
   var position = 0;
 
-  $("#characters tbody").sortable({axis : 'y', containment : 'parent', cursor : 'pointer', helper : fixHelper});
-  $("#characters tbody").disableSelection();
+  $(".characters_list tbody").sortable({axis : 'y', cursor : 'pointer', helper : fixHelper, connectWith : '.characters_list tbody',
+  
+    receive : function(event, ui) {
+      alert('ohai');
+    }
+  
+  });
+  $(".characters_list tbody").disableSelection();
+
+  // $(".character_list tr").draggable({helper : fixHelper});
+  // $(".character_init_list tbody").droppable({
+  //   drop : function(event, ui) {
+  //     alert('ohai');
+  //   }
+  // });
+  
 
   $("#previous").click(function() {
     if (position > 0) {

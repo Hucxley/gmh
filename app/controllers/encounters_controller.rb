@@ -20,6 +20,7 @@ class EncountersController < ApplicationController
   end
 
   def init
+    @campaign_characters = @campaign.characters.all
     @characters = @encounter.characters
   end
 

@@ -1,0 +1,9 @@
+%table.characters_list
+  %tr
+    %th Name
+    %th Base Initiative
+
+  - characters.each do |character|
+    %tr
+      %td= character.name
+      %td= character.initiative
