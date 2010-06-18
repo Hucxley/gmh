@@ -12,7 +12,10 @@ describe CharacterSheet do
     end
 
     it "should still set ability score if given" do
-      CharacterSheet.new(:str => 18).str.should == 18
+      sheet = CharacterSheet.new(:abilities => {:str => 18})
+      sheet.abilities.size.should == 6
+      sheet.str.should == 18
+      puts sheet.inspect
     end
   end
 
