@@ -21,7 +21,7 @@ class EncountersController < ApplicationController
 
   def init
     @campaign_characters = @campaign.characters.all
-    @characters = @encounter.characters
+    @characters = @encounter.characters.all.to_a
   end
 
   def run
@@ -67,7 +67,11 @@ class EncountersController < ApplicationController
 
   def update
     respond_to do |format|
+      character_ids = params[:encounter][:character_ids] + @encounter.character_ids
+
       if @encounter.update_attributes(params[:encounter])
+        @encounter.character_ids = character_ids
+        @encounter.save
         format.html { redirect_to([@campaign, @encounter], :notice => 'Encounter was successfully updated.') }
       else
         format.html { render :action => "edit" }

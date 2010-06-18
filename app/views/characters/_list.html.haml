@@ -4,6 +4,6 @@
     %th Base Initiative
 
   - characters.each do |character|
-    %tr
+    %tr{:id => character.id}
       %td= character.name
-      %td= character.initiative
+      %td= character.base_initiative

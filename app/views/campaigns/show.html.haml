@@ -4,13 +4,13 @@
 
 %p
   %strong= link_to "Encounters", campaign_encounters_path(@campaign)
-  - for encounter in @campaign.encounters.find(:all)
+  - for encounter in @campaign.encounters.all
     %ul
       %li
         = link_to encounter.name, campaign_encounter_path(@campaign, encounter)
 %p
   %strong= link_to "Characters", campaign_characters_path(@campaign)
-  - for character in @campaign.characters.find(:all)
+  - for character in @campaign.characters.all
     %ul
       %li
         = link_to character.name, campaign_character_path(@campaign, character)

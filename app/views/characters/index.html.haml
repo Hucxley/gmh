@@ -3,7 +3,7 @@
 %table
   %tr
     %th Name
-    %th Initiative
+    %th Base Initiative
     %th
     %th
     %th
@@ -11,7 +11,7 @@
   - @characters.each do |character|
     %tr
       %td= character.name
-      %td= character.initiative
+      %td= character.base_initiative
       %td= link_to 'Show', campaign_character_path(@campaign, character)
       %td= link_to 'Edit', edit_campaign_character_path(@campaign, character)
       %td= link_to 'Destroy', campaign_character_path(@campaign, character), :confirm => 'Are you sure?', :method => :delete

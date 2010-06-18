@@ -15,26 +15,34 @@ var fixHelper = function(e, ui) {
     return ui;
 };
 
+function attrs_from_action(action) {
+  var parts = action.split('/')
+  alert(parts)
+
+  return {
+    campaign_id : parts[2]
+  , encounter_id : parts[4]
+  };
+}
+
 
 $(function() {
   var position = 0;
 
-  $(".characters_list tbody").sortable({axis : 'y', cursor : 'pointer', helper : fixHelper, connectWith : '.characters_list tbody',
-  
-    receive : function(event, ui) {
-      alert('ohai');
+  $(".characters_list tbody tr").draggable({helper : 'clone'});
+  $("#initialization").droppable({ accept : 'tr',    
+    drop: function(event, ui) {
+      var attrs = attrs_from_action($(this).parent("form").attr("action"))
+      var character_id = $(ui.draggable).attr('id');
+      $.ajax({
+        type : 'POST',
+        url : '/campaigns/' + attrs['campaign_id'] + '/encounters/' + attrs['encounter_id'],
+        data : { encounter : {character_ids : [character_id]}, _method : "put" }
+      });
     }
-  
   });
-  $(".characters_list tbody").disableSelection();
 
-  // $(".character_list tr").draggable({helper : fixHelper});
-  // $(".character_init_list tbody").droppable({
-  //   drop : function(event, ui) {
-  //     alert('ohai');
-  //   }
-  // });
-  
+  $(".characters_list tbody").disableSelection();
 
   $("#previous").click(function() {
     if (position > 0) {

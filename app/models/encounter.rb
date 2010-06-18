@@ -2,7 +2,8 @@ class Encounter
   include Mongoid::Document
 
   field :name, :type => String
-  field :characters, :type => Array, :default => []
+  field :character_ids, :type => Array, :default => []
+  field :monsters, :type => Array, :default => []
 
   belongs_to_related :campaign
 
@@ -14,5 +15,9 @@ class Encounter
       init = roll[:roll].to_i + char.initiative
       character.update_attributes(:initiative => init)
     end
+  end
+
+  def characters
+    campaign.characters.where(:id.in => character_ids.map {|x| BSON::ObjectID.from_string(x)})
   end
 end
