@@ -10,14 +10,14 @@ class Encounter
   def initialize_characters(data)
     return if data.nil? || data.empty?
 
-    data.each do |char, roll|
-      character = caracters.select {|c| c.id == char.id}
-      init = roll[:roll].to_i + char.initiative
+    data.each do |char_id, roll|
+      character = characters.find(char_id).first
+      init = roll[:roll].to_i + character.base_initiative
       character.update_attributes(:initiative => init)
     end
   end
 
   def characters
-    campaign.characters.where(:id.in => character_ids.map {|x| BSON::ObjectID.from_string(x)})
+    campaign.characters.find(:all).select {|x| character_ids.include?(x.id)}
   end
 end

@@ -4,7 +4,7 @@ Gmh::Application.routes.draw do |map|
     resources :encounters do
       member do
         get :init, :run
-        post :run
+        post :init
       end
     end
   end

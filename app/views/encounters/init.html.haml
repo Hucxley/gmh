@@ -7,7 +7,7 @@
   = render :partial => "characters/list", :locals => {:characters => @campaign_characters}
 %p
   %h2 Charcters in encounter
-  = form_for [@campaign, @encounter], :url => run_campaign_encounter_path(@campaign, @encounter), :html => {:method => 'post', :class => "characters_list"} do |f|
+  = form_for [@campaign, @encounter], :url => init_campaign_encounter_path(@campaign, @encounter), :html => {:method => 'post', :class => "characters_list"} do |f|
     %table#initialization
       %tr
         %th Name
@@ -17,6 +17,7 @@
       - @characters.each do |character|
         %tr.character
           %td.name= character.name
+          %td.base_initiative= character.base_initiative
           %td
             %input{:id => "characters_#{character.id}_roll", :name => "characters[#{character.id}][roll]"}
 

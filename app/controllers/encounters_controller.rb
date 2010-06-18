@@ -20,16 +20,18 @@ class EncountersController < ApplicationController
   end
 
   def init
-    @campaign_characters = @campaign.characters.all
-    @characters = @encounter.characters.all.to_a
+    if params.has_key?(:characters)
+      @encounter.initialize_characters(params[:characters])
+      redirect_to :action => :run
+    else
+      @campaign_characters = @campaign.characters.all
+      @characters = @encounter.characters
+    end
   end
 
   def run
     @characters = @encounter.characters
 
-    if params.has_key?(:characters)
-      @encounter.initialize_characters(params[:characters])
-    end
   end
 
   def show
@@ -67,14 +69,17 @@ class EncountersController < ApplicationController
 
   def update
     respond_to do |format|
-      character_ids = params[:encounter][:character_ids] + @encounter.character_ids
+      character_ids = (params[:encounter][:character_ids] + @encounter.character_ids).uniq
 
       if @encounter.update_attributes(params[:encounter])
         @encounter.character_ids = character_ids
         @encounter.save
+
         format.html { redirect_to([@campaign, @encounter], :notice => 'Encounter was successfully updated.') }
+        format.js { render :js => true.to_json }
       else
         format.html { render :action => "edit" }
+        format.js { render :js => false.to_json }
       end
     end
   end

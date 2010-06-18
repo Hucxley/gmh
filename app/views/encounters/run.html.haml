@@ -1,13 +1,7 @@
-%h1= "Running #{@encounter.name}"
-%p
-  %b Name:
-  = @encounter.name
+#run
+  %h1= "Running #{@encounter.name}"
+  %p
+    = render :partial => "characters/list", :locals => {:characters => @encounter.characters}
 
-  %table
-    - @characters.each do |name, init|
-      %tr.character
-        %td.name= name
-        %td.init= init
-
-  %button#previous previous round
-  %button#next next round
+    %button#previous previous round
+    %button#next next round
