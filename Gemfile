@@ -21,6 +21,11 @@ gem 'unicorn'
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
+group :development do
+  gem "wirble"
+  gem "interactive_editor"
+end
+
 group :test do
   gem 'rspec', "2.0.0.beta.7"
   gem "rspec-rails", "2.0.0.beta.7"
