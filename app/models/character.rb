@@ -6,6 +6,8 @@ class Character
   field :current_initiative, :type => Integer
   field :encounter, :type => BSON::ObjectID
 
+  field :initiative, :type => Integer
+
   #embeds :character_sheet
   embedded_in :campaign, :inverse_of => :characters
 end

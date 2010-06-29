@@ -4,6 +4,7 @@ class Encounter
   field :name, :type => String
   field :character_ids, :type => Array, :default => []
   field :monsters, :type => Array, :default => []
+  field :round, :type => Integer, :default => 1
 
   belongs_to_related :campaign
 
@@ -11,9 +12,9 @@ class Encounter
     return if data.nil? || data.empty?
 
     data.each do |char_id, roll|
-      character = characters.find(char_id).first
+      character = characters.detect {|c| c.id == char_id}
       init = roll[:roll].to_i + character.base_initiative
-      character.update_attributes(:initiative => init)
+      character.update_attributes(:current_initiative => init)
     end
   end
 

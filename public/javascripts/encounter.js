@@ -13,6 +13,7 @@ $(function() {
     drop: function(event, ui) {
       var attrs = attrs_from_action($(this).parent("form").attr("action"))
       var character_id = $(ui.draggable).attr('id');
+
       $.ajax({
         type : 'POST',
         url : '/campaigns/' + attrs['campaign_id'] + '/encounters/' + attrs['encounter_id'],
@@ -27,6 +28,16 @@ $(function() {
   $("#previous").click(function() {
     if (position > 0) {
       position -= 1;
+    } else {
+      var attrs = attrs_from_action($("form.characters_list").attr("action"))
+      
+      $.ajax({
+        type : "POST",
+        url : '/campaigns/' + attrs['campaign_id'] + '/encounters/' + attrs['encounter_id'] + '/decrement_round',
+        data : { },
+        dataType : 'json',
+        success : function() { window.location.reload() }
+      });
     }
 
     highlightRow(position);
@@ -35,6 +46,16 @@ $(function() {
   $("#next").click(function() {
     if (position < $(".character").length - 1) {
       position += 1;
+    } else {
+      var attrs = attrs_from_action($("form.characters_list").attr("action"))
+      
+      $.ajax({
+        type : "POST",
+        url : '/campaigns/' + attrs['campaign_id'] + '/encounters/' + attrs['encounter_id'] + '/increment_round',
+        data : { },
+        dataType : 'json',
+        success : function() { window.location.reload() }
+      });
     }
 
     highlightRow(position);

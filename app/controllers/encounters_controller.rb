@@ -1,7 +1,7 @@
 class EncountersController < ApplicationController
 
   before_filter :find_campaign
-  before_filter :find_encounter, :only => [:init, :run, :show, :edit, :update, :destroy]
+  before_filter :find_encounter, :only => [:init, :run, :show, :edit, :update, :destroy, :increment_round, :decrement_round]
 
   def find_campaign
     @campaign = Campaign.find(params[:campaign_id])
@@ -31,7 +31,6 @@ class EncountersController < ApplicationController
 
   def run
     @characters = @encounter.characters
-
   end
 
   def show
@@ -81,6 +80,20 @@ class EncountersController < ApplicationController
         format.html { render :action => "edit" }
         format.js { render :js => false.to_json }
       end
+    end
+  end
+
+  def increment_round
+    @encounter.update_attributes(:round => @encounter.round + 1)
+    respond_to do |format|
+      format.js { render :js => true.to_json }
+    end
+  end
+
+  def decrement_round
+    @encounter.update_attributes(:round => @encounter.round - 1)
+    respond_to do |format|
+      format.js { render :js => true.to_json }
     end
   end
 
