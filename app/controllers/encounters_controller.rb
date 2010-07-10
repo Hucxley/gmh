@@ -30,7 +30,7 @@ class EncountersController < ApplicationController
   end
 
   def run
-    @characters = @encounter.characters
+    @characters = @encounter.characters.sort_by(&:current_initiative).reverse
   end
 
   def show
@@ -85,15 +85,17 @@ class EncountersController < ApplicationController
 
   def increment_round
     @encounter.update_attributes(:round => @encounter.round + 1)
+    @encounter.update_characters(params[:characters])
     respond_to do |format|
-      format.js { render :js => true.to_json }
+      format.js { render :js => url_for(:action => :run, :controller => :encounters).to_json}
     end
   end
 
   def decrement_round
     @encounter.update_attributes(:round => @encounter.round - 1)
+    @encounter.update_characters(params[:characters])
     respond_to do |format|
-      format.js { render :js => true.to_json }
+      format.js { render :js => url_for(:action => :run, :controller => :encounters, :anchor => "foo").to_json}
     end
   end
 

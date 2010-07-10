@@ -1,7 +1,7 @@
 #run
   %h1= "Running #{@encounter.name}: #{@encounter.round}"
   %p
-  = form_for [@campaign, @encounter], :url => run_campaign_encounter_path(@campaign, @encounter), :html => {:method => 'post', :class => "characters_list"} do |f|
+  = form_for [@campaign, @encounter], :url => run_campaign_encounter_path(@campaign, @encounter), :html => {:method => 'post', :id => "running_encounter", :class => "characters_list"} do |f|
     %table#run
       %tr
         %th Name
@@ -11,7 +11,7 @@
         %tr.character
           %td.name= character.name
           %td
-            = text_field_tag "characters[#{character.id}][initiative]", character.current_initiative
+            = text_field_tag "characters[#{character.id}][current_initiative]", character.current_initiative
 
   %button#previous previous round
   %button#next next round

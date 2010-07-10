@@ -18,6 +18,15 @@ class Encounter
     end
   end
 
+  def update_characters(updated_characters)
+    return if characters.nil? || characters.empty?
+
+    updated_characters.each do |char_id, attributes|
+      character = characters.detect {|c| c.id == char_id}
+      character.update_attributes(attributes)
+    end
+  end
+
   def characters
     campaign.characters.find(:all).select {|x| character_ids.include?(x.id)}
   end

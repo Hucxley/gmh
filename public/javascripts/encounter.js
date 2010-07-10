@@ -3,7 +3,7 @@ var highlightRow = function(i) {
   var current = characters.get(i);
 
   characters.css({'background-color' : 'white'});
-  $(current).css({'background-color' : 'red'});
+  $(current).css({'background-color' : '#A0E2FD'});
 }
   var position = 0;
 
@@ -34,9 +34,9 @@ $(function() {
       $.ajax({
         type : "POST",
         url : '/campaigns/' + attrs['campaign_id'] + '/encounters/' + attrs['encounter_id'] + '/decrement_round',
-        data : { },
+        data : $.param($("form#running_encounter").serializeArray()),
         dataType : 'json',
-        success : function() { window.location.reload() }
+        success : function(data) { window.location = data },
       });
     }
 
@@ -52,9 +52,9 @@ $(function() {
       $.ajax({
         type : "POST",
         url : '/campaigns/' + attrs['campaign_id'] + '/encounters/' + attrs['encounter_id'] + '/increment_round',
-        data : { },
+        data : $.param($("form#running_encounter").serializeArray()),
         dataType : 'json',
-        success : function() { window.location.reload() }
+        success : function(data) { window.location = data },
       });
     }
 
