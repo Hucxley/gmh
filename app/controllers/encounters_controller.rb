@@ -52,6 +52,7 @@ class EncountersController < ApplicationController
 
   def edit
     @characters = @encounter.characters
+    @campaign_characters = @campaign.characters.all
   end
 
   def create
