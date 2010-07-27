@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta3'
-gem "mongoid", "2.0.0.beta6"
+gem 'rails', '3.0.0.beta4'
+gem "mongoid", "2.0.0.beta7"
 gem "mongo", "1.0.2"
 gem "bson", "1.0.2"
 gem "bson_ext"
@@ -30,6 +30,5 @@ group :test do
   gem 'rspec', "2.0.0.beta.7"
   gem "rspec-rails", "2.0.0.beta.7"
   gem "mongoid-rspec"
-  git "git://github.com/thoughtbot/factory_girl.git",
-    :branch => "rails3"
+  gem "factory_girl_rails"
 end
